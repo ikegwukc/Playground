@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Mob.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://dodge_assets/art/House In a Forest Loop.ogg" type="AudioStream" id=5]
+[ext_resource path="res://dodge_assets/art/gameover.wav" type="AudioStream" id=6]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -381.374, -456.779, 0, 0, 0, 0, 410, -460, 0, 0, 0, 0, 430, 350, 0, 0, 0, 0, -390, 350, 0, 0, 0, 0, -381.374, -456.779 )
+}
+
+[node name="Main" type="Node" index="0"]
+
+script = ExtResource( 1 )
+Mob = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -50.0
+margin_top = -40.0
+margin_right = 1020.0
+margin_bottom = 600.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.0871582, 0.323212, 0.464844, 1 )
+
+[node name="Player" parent="." index="1" instance=ExtResource( 3 )]
+
+[node name="MobTimer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = false
+autostart = false
+
+[node name="ScoreTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="StartTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = true
+autostart = false
+_sections_unfolded = [ "Pause" ]
+
+[node name="StartPosition" type="Position2D" parent="." index="5"]
+
+position = Vector2( 510, 300 )
+
+[node name="MobPath" type="Path2D" parent="." index="6"]
+
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+position = Vector2( 668.514, 140.43 )
+scale = Vector2( 1.86392, 1.4792 )
+curve = SubResource( 1 )
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" index="0"]
+
+position = Vector2( -381.374, -456.779 )
+rotation = -0.00406141
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+
+[node name="HUD" parent="." index="7" instance=ExtResource( 4 )]
+
+offset = Vector2( 175, 425 )
+scale = Vector2( 0.75, 0.75 )
+transform = Transform2D( 0.75, 0, 0, 0.75, 175, 425 )
+
+[node name="Music" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
+
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+
+
