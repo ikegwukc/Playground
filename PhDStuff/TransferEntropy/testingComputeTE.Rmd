@@ -1,0 +1,29 @@
+---
+title: "Testing computeTE"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installing compute_TE via R
+
+Run the code cell below to install Transfer Entropy package used by McMullin
+```{r setup}
+# Needed to install repos from github
+install.packages("remotes")
+require("remotes")
+install_github("Healthcast/TransEnt")
+```
+
+## import Transfer Entropy package 
+```{r import TE}
+require("TransferEntropy")
+```
+
+## Reading in data and running computeTE
+```{r compute TE}
+df <- read.csv2("/Users/jarvis/GoogleDrive/Playground/PhDStuff/TransferEntropy/testData/df_100_nodup.csv", sep = " ", header=F)
+
+```
