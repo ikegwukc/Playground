@@ -38,8 +38,9 @@ Y = ...  # numpy array with option prices
 N = ...  # Number of Points in X and Y which should be the same.
 k = ...  # number of neighbors
 
-n_x = 0  # counts of
-n_y = 0
+n_x = 0  # counts of neighbors for X
+n_y = 0  # counts of neighbors for Y
+
 kdTreeX = sklearn.neighbors.KDTree(X)  # KD Tree for X space
 kdTreeY = sklearn.neighbors.KDTree(Y)  # KD Tree for Y space
 
@@ -53,12 +54,12 @@ for i in range(N):
   dist_x = X[i] - X[idx]
 
   # Get Counts of all neighbors within that distance.
-  counts = kdTreeX.query_radius(X[i], dist_x)  # Assume I get back a integer
-  n_x += counts
+  nx_i = kdTreeX.query_radius(X[i], dist_x)  # Assume I get back a integer
+  n_x += nx_i
 
   # Repeat above for Y
 
 TransferEntropy = digamma(k) - digamma(n_x + 1) + digamma(n_y +1) + digamma(N)
 ```
 
-I see that the above is being done in compute_TE however there are 4 subspaces that include the embedding values instead of just 2 for X and Y.
+I see that the above is being done in compute_TE however there are 4 subspaces that include the embedding values instead of just 2 for X and Y. I need to investigate why.
