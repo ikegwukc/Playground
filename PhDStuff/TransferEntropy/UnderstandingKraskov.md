@@ -6,9 +6,9 @@
 ### The basic idea
 This paper estimates Mutual Information (MI) from k-nearest neighbor statistics.
 
-Let $$ X $$ represent the security prices and `Y` represent the option prices. The basic idea is to estimate Shannon's entropy H() from the average distance to the k-nearest neighbor averaged over all points  for `X` and `Y`.
+Let $X$ represent the security prices and $Y$ represent the option prices. The basic idea is to estimate Shannon's entropy $H()$ from the average distance to the k-nearest neighbor averaged over all points for $X$ and $Y$.
 
-Mutual information could be obtained by estimating Shannon Entropy for `X` H(X), the Shannon Entropy for `Y` H(Y), and H􏰒(X,Y) and then performing the following calculation:  H(X) + H(Y) - H(X,Y).
+Mutual information could be obtained by estimating Shannon Entropy for $X$ $H(X)$, the Shannon Entropy for $Y$ $H(Y)$, and $H􏰒(X,Y)$ and then performing the following calculation:  $H(X) + H(Y) - H(X,Y)$.
 
 - **Note:** There's a paper that talk about how to compute H(X,Y) but I have not reviewed it yet.
 
@@ -18,21 +18,21 @@ The algorithm used in [Compute_TE.cpp](https://github.com/ikegwukc/TransEnt/blob
 
 >In the first algorithm, we count the number $n_x(􏰒i)$􏰇 of points $x_j$ whose distance from $x_i$ is strictly less than 􏰠$\epsilon(􏰒i)􏰇/2$, and similarly for y instead of x.
 >
-> The estimate for MI is then: I$􏰒^{(1)}􏰇(X,Y)􏰇 = \digamma(􏰞􏰒k)􏰇 − \digamma(􏰎􏰞􏰒n_x) + 1)􏰇 + \digamma(􏰞􏰒n_y +1) + \digamma(N)$
+> The estimate for MI is then: I$􏰒^{(1)}􏰇(X,Y)􏰇 = \digamma(􏰞􏰒k)􏰇 − \big \langle \digamma(􏰎􏰞􏰒n_x) + 1)􏰇 \big \rangle + \digamma(􏰞􏰒n_y +1) + \digamma(N)$
 
 - $\epsilon(􏰒i)􏰇/2$ is the distance to the nearest neighbor. $x_j$ contains the observation for the nearest neighbor $x_i$ contains the observation for the current point.
--
 
 How I interpreted the pseudocode looking like is:
 ``` python
 from scipy.special import digamma  # to compute log derivative of gamma function
+import sklearn
 
 X = ...  # numpy array with security prices
 Y = ...  # numpy array with option prices
 N = ...  # Number of Points in X and Y which should be the same.
 k = ...  # number of neighbors
 
-n_x = 0
+n_x = 0  # counts of
 n_y = 0
 kdTreeX = sklearn.neighbors.KDTree(X)  # KD Tree for X space
 kdTreeY = sklearn.neighbors.KDTree(Y)  # KD Tree for Y space
@@ -52,7 +52,7 @@ for i in range(N):
 
   # Repeat above for Y
 
-TransferEntropy = digamma(k) - maxnorm(digamma(n_x + 1) + digamma(n_y +1)) + digamma(N)
+TransferEntropy = digamma(k) - digamma(n_x + 1) + digamma(n_y +1) + digamma(N)
 ```
 
 I see that the above is being done in compute_TE however there are 4 subspaces that include the embedding values instead of just 2 for X and Y.
