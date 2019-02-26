@@ -18,7 +18,7 @@ The algorithm used in [Compute_TE.cpp](https://github.com/ikegwukc/TransEnt/blob
 
 >In the first algorithm, we count the number $n_x(􏰒i)$􏰇 of points $x_j$ whose distance from $x_i$ is strictly less than 􏰠$\epsilon(􏰒i)􏰇/2$, and similarly for y instead of x.
 >
-> The estimate for MI is then: I$􏰒^{(1)}􏰇(X,Y)􏰇 = \digamma(􏰞􏰒k)􏰇 − \big \langle \digamma(􏰎􏰞􏰒n_x) + 1)􏰇 \big \rangle + \digamma(􏰞􏰒n_y +1) + \digamma(N)$
+> The estimate for MI is then: $I􏰒^{(1)}􏰇(X,Y)􏰇 = \digamma(􏰞􏰒k)􏰇 − \big \langle \digamma(􏰎􏰞􏰒n_x) + 1)􏰇 \big \rangle + \digamma(􏰞􏰒n_y +1) + \digamma(N)$
 
 - $\epsilon(􏰒i)􏰇/2$ is the distance to the nearest neighbor. $x_j$ contains the observation for the nearest neighbor $x_i$ contains the observation for the current point.
 
