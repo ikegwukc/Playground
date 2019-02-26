@@ -6,7 +6,7 @@
 ### The basic idea
 This paper estimates Mutual Information (MI) from k-nearest neighbor statistics.
 
-Let `X` represent the security prices and `Y` represent the option prices. The basic idea is to estimate Shannon's entropy H() from the average distance to the k-nearest neighbor averaged over all points  for `X` and `Y`.
+Let $$ X $$ represent the security prices and `Y` represent the option prices. The basic idea is to estimate Shannon's entropy H() from the average distance to the k-nearest neighbor averaged over all points  for `X` and `Y`.
 
 Mutual information could be obtained by estimating Shannon Entropy for `X` H(X), the Shannon Entropy for `Y` H(Y), and H􏰒(X,Y) and then performing the following calculation:  H(X) + H(Y) - H(X,Y).
 
@@ -55,4 +55,4 @@ for i in range(N):
 TransferEntropy = digamma(k) - maxnorm(digamma(n_x + 1) + digamma(n_y +1)) + digamma(N)
 ```
 
-I see that the above is being done in compute_TE however there are 4 subspaces instead of just 2 for X and Y.
+I see that the above is being done in compute_TE however there are 4 subspaces that include the embedding values instead of just 2 for X and Y.
