@@ -1,6 +1,6 @@
 # OpenAI Instructions for Naveen.
 
-I installed the latest version of ubuntu which at the time of writing this is: Ubuntu 18.04.02 LTS.
+I installed the latest version of Ubuntu which at the time of writing this is: Ubuntu 18.04.02 LTS.
 
 I open up terminal and then run the following commands:
 
